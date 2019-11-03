@@ -25,4 +25,4 @@ in short on how to use the tool
     reports activity for the user to know it's not frozen 
     
 ## Preview
-![Preview](https://github.com/Aionmagan/NSPsplitty/blob/master/NSPsplitty/preview.pg)
+![Preview](https://github.com/Aionmagan/NSPsplitty/blob/master/NSPsplitty/preview.png)
