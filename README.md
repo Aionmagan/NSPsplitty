@@ -23,3 +23,6 @@ in short on how to use the tool
     to start splitting files, wait it takes a bit 
 ## Console box 
     reports activity for the user to know it's not frozen 
+    
+## Preview
+![Preview](https://github.com/Aionmagan/NSPsplitty/blob/master/NSPsplitty/preview.png)
