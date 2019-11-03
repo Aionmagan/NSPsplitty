@@ -29,7 +29,7 @@ namespace NSPsplitty
             if (Thread.CurrentThread != ConsoleBox.Dispatcher.Thread)
             {
                 this.Dispatcher.Invoke(new Action(() =>
-                {
+                {//recursive
                     ConsoleText(str, rewrite, indexOf);
                 }));
                 return; 
