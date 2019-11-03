@@ -65,6 +65,7 @@ namespace NSPsplitty
                     nspFile.Dispose();
                 }
 
+                File.SetAttributes(dir, FileAttributes.Archive);
                 ConsoleText("\n NSP split successfully");
             }catch(Exception exception)
             {

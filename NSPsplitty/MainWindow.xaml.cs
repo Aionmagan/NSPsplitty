@@ -53,7 +53,7 @@ namespace NSPsplitty
         {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Multiselect = false;
-            openFile.Filter = "NSP (*.nsp*)|*.nsp*";
+            openFile.Filter = "NSP(*.nsp*)|*.nsp*| All files(*.*)|*.*";
 
             Nullable<bool> checkFiles = openFile.ShowDialog();
 
