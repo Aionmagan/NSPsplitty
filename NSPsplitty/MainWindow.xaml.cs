@@ -14,6 +14,7 @@ namespace NSPsplitty
     {
         private string fileDir = null;
         private string dir = null;
+        private string dotExtension = null;
         private long fileSize = 0;
         private long splitNumber = 0;
         private readonly uint splitSize = 0xFFFF0000;
@@ -29,7 +30,7 @@ namespace NSPsplitty
             if (Thread.CurrentThread != ConsoleBox.Dispatcher.Thread)
             {
                 this.Dispatcher.Invoke(new Action(() =>
-                {//recursive
+                {   
                     ConsoleText(str, rewrite, indexOf);
                 }));
                 return; 
@@ -66,6 +67,8 @@ namespace NSPsplitty
                 {
                     //cleaning consoleText
                     ConsoleBox.Text = "";
+                    dotExtension = fileDir.Substring(fileDir.LastIndexOf("."));
+                    //ConsoleText($"file extension is {dotExtension}");
                     Split_Button.IsEnabled = true;
                 }
             }
@@ -120,14 +123,14 @@ namespace NSPsplitty
 
             if (splitNumber == 0)
             {
-                ConsoleText("This .nsp file is under 4GB, no split is needed");
+                ConsoleText($"This {dotExtension} file is under 4GB, no split is needed");
 
                 return false;
             }
 
-            ConsoleText($" Splitting .nsp into {splitNumber + 1} parts");
+            ConsoleText($" Splitting {dotExtension} into {splitNumber + 1} parts");
 
-            dir = fileDir.Substring(0, fileDir.LastIndexOf(".")) + "_split.nsp";
+            dir = fileDir.Substring(0, fileDir.LastIndexOf(".")) + "_split"+dotExtension;
 
             if (Directory.Exists(dir))
             {
