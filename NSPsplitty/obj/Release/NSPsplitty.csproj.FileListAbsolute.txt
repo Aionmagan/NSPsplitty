@@ -1,0 +1,15 @@
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\bin\Release\NSPsplitty.exe.config
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\bin\Release\NSPsplitty.exe
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\bin\Release\NSPsplitty.pdb
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.csprojAssemblyReference.cache
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\MainWindow.g.cs
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\App.g.cs
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty_MarkupCompile.cache
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty_MarkupCompile.lref
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\MainWindow.baml
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.g.resources
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.Properties.Resources.resources
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.csproj.GenerateResource.cache
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.csproj.CoreCompileInputs.cache
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.exe
+C:\Users\Acer nitron 5\source\repos\NSPsplitty\NSPsplitty\obj\Release\NSPsplitty.pdb
