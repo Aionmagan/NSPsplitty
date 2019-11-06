@@ -56,7 +56,7 @@
             Margin="56,63,0,0" 
             VerticalAlignment="Top"
             Click="UnSplit_CheckBox"
-            IsChecked="True"
+            IsChecked="False"
             Name="UnSplit_Check" Grid.Column="1"/>
 
     </Grid>
