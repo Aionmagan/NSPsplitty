@@ -18,9 +18,6 @@ namespace NSPsplitty
                 var splitNum = splitNumber;
                 var checkMB = (sizeOfSplit / 1024 / 1024);
 
-                long size = 0, tempSize = 0, lastSize = 0;
-                byte[] buffer = new byte[chunkSize];
-
                 //splitting starting from the last file and making it file '01' 
                 //truncating file '00' on the fly
                 using (var nspFile = File.Open(dir + "\\00", FileMode.Open, FileAccess.ReadWrite))
@@ -32,20 +29,21 @@ namespace NSPsplitty
                             sizeOfSplit = splitSize;
                             splitNum = (splitNumber - (i + 1));
                             checkMB = (sizeOfSplit / 1024 / 1024);
-                            lastSize = tempSize = 0;
                         }
 
                         nspFile.Seek(sizeOfSplit * -1, SeekOrigin.End);
-                        var outFile = dir + string.Format("\\{0:00}", splitNum);
 
                         ConsoleText(string.Format("Starting part {0:00}.", splitNum));
-                        using (var splitFile = File.OpenWrite(outFile))
+                        using (var splitFile = File.OpenWrite(dir + string.Format("\\{0:00}", splitNum)))
                         {
-                            while ((size = (new FileInfo(splitFile.Name).Length)) < sizeOfSplit)
+                            long size = 0, tempSize = 0, lastSize = 0;
+                            byte[] buffer = new byte[chunkSize];
+                            //(size = new FileInfo(splitFile.Name).Length)
+                            while (size < sizeOfSplit)
                             {
                                 splitFile.Write(buffer, 0,
                                                 nspFile.Read(buffer, 0, buffer.Length));
-                               
+                                size += chunkSize;
                                 lastSize = size / 1024 / 1024;
                                 if (lastSize <= tempSize) { continue; }
 
@@ -67,6 +65,7 @@ namespace NSPsplitty
 
                 File.SetAttributes(dir, FileAttributes.Archive);
                 ConsoleText("\n NSP split successfully");
+
             }catch(Exception exception)
             {
                 ConsoleText(exception.Message);

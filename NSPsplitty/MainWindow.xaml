@@ -7,12 +7,18 @@
         mc:Ignorable="d"
         Title="NSPsplitty" Height="280" Width="282" Icon="Icon1.ico">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="123*"/>
+            <ColumnDefinition Width="151*"/>
+        </Grid.ColumnDefinitions>
         <TextBox 
             HorizontalAlignment="Left" 
             Height="23" Margin="10,10,0,0" 
             TextWrapping="Wrap" 
-            Text="Browse for the '.nsp' file you will like to split" 
-            VerticalAlignment="Top" Width="244" Name="SearchBox"/>
+            Text="Browse for the file you will like to split" 
+            VerticalAlignment="Top" Width="244" 
+            Name="SearchBox" Grid.ColumnSpan="2"
+            IsReadOnly="True"/>
         <Button 
             Content="Browse" 
             HorizontalAlignment="Left" 
@@ -20,30 +26,38 @@
             VerticalAlignment="Top" Width="75" 
             Click="Browse_Click" />
         <CheckBox 
-            Content="Create Copy of .nsp file" 
+            Content="Create Copy of file" 
             HorizontalAlignment="Left" 
             Margin="10,63,0,0" 
             VerticalAlignment="Top" 
             RenderTransformOrigin="-0.582,1.933" 
             IsChecked="True" 
             IsEnabled="True"
-            Name="Create_Copy"/>
+            Name="Create_Copy" Grid.ColumnSpan="2"/>
         <Button 
             Content="Split File" 
             HorizontalAlignment="Left" 
-            Margin="179,38,0,0" 
+            Margin="56,38,0,0" 
             VerticalAlignment="Top" Width="75" 
             RenderTransformOrigin="0.1,-0.075" 
             IsEnabled="False" 
             Click="Split_Click" 
-            Name="Split_Button"/>
+            Name="Split_Button" Grid.Column="1"/>
         <TextBox 
             HorizontalAlignment="Left" Height="156" 
             Margin="10,83,0,0" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" Width="244" 
             Name="ConsoleBox"
-            IsReadOnly="True"/>
+            IsReadOnly="True" Grid.ColumnSpan="2"/>
+        <CheckBox 
+            Content="Merge files" 
+            HorizontalAlignment="Left" 
+            Margin="56,63,0,0" 
+            VerticalAlignment="Top"
+            Click="UnSplit_CheckBox"
+            IsChecked="True"
+            Name="UnSplit_Check" Grid.Column="1"/>
 
     </Grid>
 </Window>

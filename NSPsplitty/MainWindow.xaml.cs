@@ -25,6 +25,20 @@ namespace NSPsplitty
             InitializeComponent();
         }
 
+        private void UnSplit_CheckBox(object sender, RoutedEventArgs e)
+        {
+            if (UnSplit_Check.IsChecked == true)
+            { 
+                SearchBox.Text = "Browse for the file you will like to Merge";
+                Split_Button.Content = "Merge files";
+            } else
+            {
+                SearchBox.Text = "Browse for the file you will like to split";
+                Split_Button.Content = "Split File";
+            }  
+            Split_Button.IsEnabled = false;
+        }
+
         private void ConsoleText(string str, bool rewrite = false, string indexOf = ".")
         {
             if (Thread.CurrentThread != ConsoleBox.Dispatcher.Thread)
@@ -56,19 +70,25 @@ namespace NSPsplitty
             openFile.Multiselect = false;
             openFile.Filter = "NSP(*.nsp*)|*.nsp*| All files(*.*)|*.*";
 
-            Nullable<bool> checkFiles = openFile.ShowDialog();
-
-            if (checkFiles == true)
+            Nullable<bool> checkFile = openFile.ShowDialog();
+            
+            if (checkFile == true)
             {   
                 fileDir = openFile.FileName;
+
+                if (UnSplit_Check.IsChecked == true)
+                {
+                    dir = fileDir.Substring(0, fileDir.LastIndexOf("\\"));
+                }
+
                 SearchBox.Text = fileDir;
 
                 if(fileDir != null)
                 {
                     //cleaning consoleText
                     ConsoleBox.Text = "";
-                    dotExtension = fileDir.Substring(fileDir.LastIndexOf("."));
                     //ConsoleText($"file extension is {dotExtension}");
+                    splitNumber = 0;
                     Split_Button.IsEnabled = true;
                 }
             }
@@ -84,6 +104,18 @@ namespace NSPsplitty
             DriveInfo drive = new DriveInfo(fileDir[0].ToString());
             fileSize = new FileInfo(fileDir).Length;
 
+            //double code, need to optimize, works for now 
+            if (UnSplit_Check.IsChecked == true)
+            {
+                //starting a 1 because 00 was already apply on line 105
+                int i = 1;
+                while (File.Exists(dir + string.Format("\\{0:00}", i)))
+                {
+                    fileSize += new FileInfo(dir + string.Format("\\{0:00}", i)).Length;
+                    i++;
+                }
+            }
+
             long tempsize = fileSize;
             if (Create_Copy.IsChecked == true) { tempsize *= 2; }
 
@@ -96,23 +128,74 @@ namespace NSPsplitty
             }
             else
             {
-                if (CalculateSplits())
+
+                Thread thread;
+                if (Create_Copy.IsChecked == true)
                 {
-                    Thread thread;
-                    if (Create_Copy.IsChecked == true)
+                    if (UnSplit_Check.IsChecked == true)
                     {
-                        thread = new Thread(SplitCopy);
-                        thread.Priority = ThreadPriority.Highest;
-                        thread.Start();
+                        if (CalculateUnsplit())
+                        {
+                            thread = new Thread(CopyUnsplit);
+                            thread.Priority = ThreadPriority.Highest;
+                            thread.Start();
+                        }
                     }
-                    else
+                    else 
                     {
-                        thread = new Thread(SplitQuick);
-                        thread.Priority = ThreadPriority.Highest;
-                        thread.Start();
+                        if (CalculateSplits())
+                        {
+                            thread = new Thread(SplitCopy);
+                            thread.Priority = ThreadPriority.Highest;
+                            thread.Start();
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    if (UnSplit_Check.IsChecked == true)
+                    {
+                        if (CalculateUnsplit())
+                        {
+                            thread = new Thread(QuickUnsplit);
+                            thread.Priority = ThreadPriority.Highest;
+                            thread.Start();
+                        }
+                    }
+                    else 
+                    {
+                        if (CalculateSplits())
+                        {
+                            thread = new Thread(SplitQuick);
+                            thread.Priority = ThreadPriority.Highest;
+                            thread.Start();
+                        }
                     }
                 }
+
             }
+        }
+
+        private bool CalculateUnsplit()
+        {
+            //checking for amounts of files '0x'
+            do
+            {
+                splitNumber++;
+
+            } while (File.Exists(dir + string.Format("\\{0:00}", splitNumber)));
+
+            ConsoleText($"folder contains {splitNumber} mergeable files");
+
+
+            if (splitNumber <= 1)
+            {
+                ConsoleText($"{splitNumber} is not enough to merge files");
+                return false;
+            }
+
+            return true;
         }
 
         private bool CalculateSplits()
@@ -128,8 +211,8 @@ namespace NSPsplitty
                 return false;
             }
 
+            dotExtension = fileDir.Substring(fileDir.LastIndexOf("."));
             ConsoleText($" Splitting {dotExtension} into {splitNumber + 1} parts");
-
             dir = fileDir.Substring(0, fileDir.LastIndexOf(".")) + "_split"+dotExtension;
 
             if (Directory.Exists(dir))

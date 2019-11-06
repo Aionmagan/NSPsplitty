@@ -17,20 +17,19 @@ namespace NSPsplitty
                     {
                         ConsoleText(string.Format("Starting part {0:00}.", i));
 
-                        var outFile = dir + string.Format("\\{0:00}", i);
-                        using (FileStream splitFile = File.OpenWrite(outFile))
+                        using (FileStream splitFile = File.OpenWrite(dir + string.Format("\\{0:00}", i)))
                         {
                             long size = 0, tempSize = 0, lastSize = 0, checkSize = splitSize;
                             byte[] buffer = new byte[chunkSize];
 
                             if (remSize < splitSize) { checkSize = remSize; }
                             var checkMB = checkSize / 1024 / 1024;
-
-                            while ((size = (new FileInfo(splitFile.Name).Length)) < checkSize)
+                            //(size = new FileInfo(splitFile.Name).Length)
+                            while (size < checkSize)
                             {
                                 splitFile.Write(buffer, 0,
                                                 nspfile.Read(buffer, 0, buffer.Length));
-
+                                size += chunkSize;
                                 lastSize = size / 1024 / 1024;
 
                                 if (lastSize <= tempSize) { continue; }
