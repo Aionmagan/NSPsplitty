@@ -24,7 +24,7 @@ short hand to use this tool
     create a copy or not (leaving it checked is recommended, requires double the storage space of the file selected)
 ## Split button / Merge button
     start splitting files or merging them 
-    'Merge files' button will appear only if file '00'is selected 
+    'Merge files' button will appear only if file '00'is selected (Updates v0.03-a require this)
 ## Console box 
     reports activity for the user to know what's currently happening
 ## Merge check box (removed on update v0.03-a and above)
