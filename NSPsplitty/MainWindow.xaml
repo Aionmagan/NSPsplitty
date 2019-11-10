@@ -15,7 +15,7 @@
             HorizontalAlignment="Left" 
             Height="23" Margin="10,10,0,0" 
             TextWrapping="Wrap" 
-            Text="Browse for the file you will like to split" 
+            Text="Browse for the file you would like to split" 
             VerticalAlignment="Top" Width="244" 
             Name="SearchBox" Grid.ColumnSpan="2"
             IsReadOnly="True"/>
@@ -29,10 +29,9 @@
             Content="Create Copy of file" 
             HorizontalAlignment="Left" 
             Margin="10,63,0,0" 
+            IsChecked="True"
             VerticalAlignment="Top" 
             RenderTransformOrigin="-0.582,1.933" 
-            IsChecked="True" 
-            IsEnabled="True"
             Name="Create_Copy" Grid.ColumnSpan="2"/>
         <Button 
             Content="Split File" 
@@ -50,14 +49,6 @@
             VerticalAlignment="Top" Width="244" 
             Name="ConsoleBox"
             IsReadOnly="True" Grid.ColumnSpan="2"/>
-        <CheckBox 
-            Content="Merge files" 
-            HorizontalAlignment="Left" 
-            Margin="56,63,0,0" 
-            VerticalAlignment="Top"
-            Click="UnSplit_CheckBox"
-            IsChecked="False"
-            Name="UnSplit_Check" Grid.Column="1"/>
 
     </Grid>
 </Window>

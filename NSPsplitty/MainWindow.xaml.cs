@@ -15,6 +15,7 @@ namespace NSPsplitty
         private string fileDir = null;
         private string dir = null;
         private string dotExtension = null;
+        private bool mergeFile = false;
         private long fileSize = 0;
         private long splitNumber = 0;
         private readonly uint splitSize = 0xFFFF0000;
@@ -25,9 +26,9 @@ namespace NSPsplitty
             InitializeComponent();
         }
 
-        private void UnSplit_CheckBox(object sender, RoutedEventArgs e)
+        private void MergeState(bool merge)
         {
-            if (UnSplit_Check.IsChecked == true)
+            if (merge == true)
             { 
                 SearchBox.Text = "Browse for the file you will like to Merge";
                 Split_Button.Content = "Merge files";
@@ -35,8 +36,9 @@ namespace NSPsplitty
             {
                 SearchBox.Text = "Browse for the file you will like to split";
                 Split_Button.Content = "Split File";
-            }  
-            Split_Button.IsEnabled = false;
+            }
+            //Split_Button.IsEnabled = false;
+            mergeFile = merge;
         }
 
         private void ConsoleText(string str, bool rewrite = false, string indexOf = ".")
@@ -71,16 +73,23 @@ namespace NSPsplitty
             openFile.Filter = "NSP(*.nsp*)|*.nsp*| All files(*.*)|*.*";
 
             Nullable<bool> checkFile = openFile.ShowDialog();
+            MergeState(false);
             
             if (checkFile == true)
             {   
                 fileDir = openFile.FileName;
 
-                if (UnSplit_Check.IsChecked == true)
+                /*better way to check for all 'xx'(01, 02,...) or equal files 
+                 * by looking for a missing (.) at the end
+                 * will apply later for testing 
+                 * for now it will require file '00' to enable merge 
+                */
+                if (fileDir.Substring(fileDir.LastIndexOf("\\")) == "\\00")
                 {
                     dir = fileDir.Substring(0, fileDir.LastIndexOf("\\"));
+                    MergeState(true);
                 }
-
+                
                 SearchBox.Text = fileDir;
 
                 if(fileDir != null)
@@ -105,9 +114,9 @@ namespace NSPsplitty
             fileSize = new FileInfo(fileDir).Length;
 
             //double code, need to optimize, works for now 
-            if (UnSplit_Check.IsChecked == true)
+            if (mergeFile)
             {
-                //starting a 1 because 00 was already apply on line 105
+                //starting a 1 because 00 was already apply 6 above this one
                 int i = 1;
                 while (File.Exists(dir + string.Format("\\{0:00}", i)))
                 {
@@ -132,7 +141,7 @@ namespace NSPsplitty
                 Thread thread;
                 if (Create_Copy.IsChecked == true)
                 {
-                    if (UnSplit_Check.IsChecked == true)
+                    if (mergeFile)
                     {
                         if (CalculateUnsplit())
                         {
@@ -154,7 +163,7 @@ namespace NSPsplitty
                 }
                 else
                 {
-                    if (UnSplit_Check.IsChecked == true)
+                    if (mergeFile)
                     {
                         if (CalculateUnsplit())
                         {
@@ -215,11 +224,7 @@ namespace NSPsplitty
             ConsoleText($" Splitting {dotExtension} into {splitNumber + 1} parts");
             dir = fileDir.Substring(0, fileDir.LastIndexOf(".")) + "_split"+dotExtension;
 
-            if (Directory.Exists(dir))
-            {
-                Directory.Delete(dir, true);
-            }
-
+            if (Directory.Exists(dir)) { Directory.Delete(dir, true); }
             Directory.CreateDirectory(dir);
 
             return true;

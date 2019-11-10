@@ -48,7 +48,7 @@ namespace NSPsplitty
                     createdFile.Flush();
                     createdFile.Dispose();
                 }
-                ConsoleText($"\n {dir.Substring(dir.LastIndexOf(".")).ToUpper()} merging sccuessfully");
+                ConsoleText($"\n {dir.Substring(dir.LastIndexOf(".")).ToUpper()} merged sccuessfully");
             }
             catch (Exception exception)
             {
