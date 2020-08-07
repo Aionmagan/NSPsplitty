@@ -1,7 +1,7 @@
 # NSPsplitty
 
 this is a general purpose tool for splitting or merging files to fit in the 'fat32' file system 
-for Nintedo switch users. 
+for all purposes (the name was given to make it obvious that Nintedo Switch files also counts) . 
 
 it was made as a more straight forward tool with a graphical interface.
 
