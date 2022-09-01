@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CopyUnsplit.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="QuickSplit.cs" />
     <Compile Include="QuickUnsplit .cs" />
     <Page Include="MainWindow.xaml">

@@ -12,8 +12,19 @@ namespace NSPsplitty
    
     public partial class MainWindow : Window
     {
-        private string fileDir = null;
-        private string dir = null;
+        private MainWindowViewModel viewModel = new MainWindowViewModel();
+
+        private string fileDir
+        {
+            get => viewModel.InputFile;
+            set => viewModel.InputFile = value;
+        }
+
+        private string dir
+        {
+            get => viewModel.OutputDir;
+            set => viewModel.OutputDir = value;
+        }
         private string dotExtension = null;
         private bool mergeFile = false;
         private long fileSize = 0;
@@ -24,6 +35,7 @@ namespace NSPsplitty
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = viewModel;
         }
 
         private void MergeState(bool merge)
@@ -90,8 +102,6 @@ namespace NSPsplitty
                     MergeState(true);
                 }
                 
-                SearchBox.Text = fileDir;
-
                 if(fileDir != null)
                 {
                     //cleaning consoleText
