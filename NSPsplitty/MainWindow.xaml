@@ -8,47 +8,27 @@
         Title="NSPsplitty" Height="280" Width="282" Icon="Icon1.ico">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="123*"/>
-            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <TextBox 
-            HorizontalAlignment="Left" 
-            Height="23" Margin="10,10,0,0" 
-            TextWrapping="Wrap" 
-            Text="Browse for the file you would like to split" 
-            VerticalAlignment="Top" Width="244" 
-            Name="SearchBox" Grid.ColumnSpan="2"
-            IsReadOnly="True"/>
-        <Button 
-            Content="Browse" 
-            HorizontalAlignment="Left" 
-            Margin="10,38,0,0" 
-            VerticalAlignment="Top" Width="75" 
-            Click="Browse_Click" />
-        <CheckBox 
-            Content="Create Copy of file" 
-            HorizontalAlignment="Left" 
-            Margin="10,63,0,0" 
-            IsChecked="True"
-            VerticalAlignment="Top" 
-            RenderTransformOrigin="-0.582,1.933" 
-            Name="Create_Copy" Grid.ColumnSpan="2"/>
-        <Button 
-            Content="Split File" 
-            HorizontalAlignment="Left" 
-            Margin="56,38,0,0" 
-            VerticalAlignment="Top" Width="75" 
-            RenderTransformOrigin="0.1,-0.075" 
-            IsEnabled="False" 
-            Click="Split_Click" 
-            Name="Split_Button" Grid.Column="1"/>
-        <TextBox 
-            HorizontalAlignment="Left" Height="156" 
-            Margin="10,83,0,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" Width="244" 
-            Name="ConsoleBox"
-            IsReadOnly="True" Grid.ColumnSpan="2"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Row 0 -->
+        <Label Content="Split File"/>
+        <TextBox Name="SearchBox" Grid.Column="1" Text="{Binding InputFile}" Margin="5,5,0,5" IsEnabled="False" />
+        <Button Name="SearchBoxButton" Content="..."  Grid.Column="2" Grid.Row="0"  Click="Browse_Click" Margin="0,5,5,5"/>
+
+        <!-- Row 2 -->
+        <CheckBox Content="Create Copy" IsChecked="True" Name="Create_Copy" Grid.Row="1" Margin="5"/>
+        <Button Margin="5" Content="Split File"  IsEnabled="False" Click="Split_Click" Name="Split_Button" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+        <!-- Row 3 -->
+        <TextBox Margin="5" TextWrapping="Wrap" Name="ConsoleBox" IsReadOnly="True"  Grid.Row="2" Grid.ColumnSpan="3"/>
 
     </Grid>
 </Window>
